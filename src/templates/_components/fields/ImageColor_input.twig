@@ -1,0 +1,31 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * imagecolor plugin for Craft CMS 3.x
+ *
+ * ImageColor Field Input
+ *
+ * @author    Niklas Sonnenschein
+ * @copyright Copyright (c) 2019 Niklas Sonnenschein
+ * @link      https://niklassonnenschein.de
+ * @package   Imagecolor
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+<div class="imagecolor-wrapper">
+        {{ forms.elementSelectField({
+                id: id ~ "__image",
+                name: name ~ "[image]"
+                }|merge(elementSelectSettings))
+        }}
+
+        {{ forms.colorField({
+                label: 'Farbe',
+                id: id ~ "__color",
+                name: name ~ "[color]",
+                value: value.color })
+        }}
+</div>

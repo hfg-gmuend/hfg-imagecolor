@@ -1,0 +1,37 @@
+{
+    "name": "hfg/imagecolor",
+    "description": "Extracts the dominant color of an image into a color field.",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "imagecolor"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Niklas Sonnenschein",
+            "homepage": "https://niklassonnenschein.de"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1",
+        "ksubileau/color-thief-php": "^1.4",
+        "aelvan/imager": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+          "hfg\\imagecolor\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "imagecolor",
+        "handle": "imagecolor",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "class": "hfg\\imagecolor\\Imagecolor"
+    }
+}
