@@ -19,7 +19,6 @@
     ],
     "require": {
         "craftcms/cms": "^3.0.0-RC1",
-        "ksubileau/color-thief-php": "^1.4",
         "aelvan/imager": "^2.3"
     },
     "autoload": {
