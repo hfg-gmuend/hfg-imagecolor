@@ -7,5 +7,18 @@
  * @copyright Copyright (c) 2019 Niklas Sonnenschein
  * @link      https://niklassonnenschein.de
  * @package   Imagecolor
- * @since     1.0.0
+ * @since     1.1
  */
+
+ .imagecolor-palette span {
+     display: inline-block;
+     width: 40px;
+     height: 40px;
+     margin-right: 2px;
+     background-color: var(--palette-color);
+     cursor: pointer;
+ }
+
+ .imagecolor-palette span:first-child {
+    margin-right: 10px;
+ }

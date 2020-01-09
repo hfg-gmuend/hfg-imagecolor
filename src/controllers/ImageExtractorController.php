@@ -30,6 +30,7 @@ class ImageExtractorController extends Controller
         "width" => 1200,
         "height" => 540
     );
+    private $colorCount = 8;
     private $colorMode = "hex";
     private $quality = 10;
 
@@ -51,10 +52,12 @@ class ImageExtractorController extends Controller
 
         $transformedImage = Imager::$plugin->imager->transformImage($image, $this->heroDimensions);
         $color = Imager::$plugin->color->getDominantColor($transformedImage, $this->quality, $this->colorMode);
+        $palette = Imager::$plugin->color->getColorPalette($transformedImage, $this->colorCount, $this->quality, $this->colorMode);
 
         return $this->asJson(
             [
-                "color" => $color
+                "color" => $color,
+                "palette" => $palette,
             ]
         );
     }
