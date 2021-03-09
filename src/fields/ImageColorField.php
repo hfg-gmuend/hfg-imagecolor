@@ -20,7 +20,8 @@ use Craft;
 use craft\base\ElementInterface;
 use craft\base\Field;
 use craft\elements\Asset as CraftAsset;
-use craft\helpers\Db;
+use craft\errors\SiteNotFoundException;
+use craft\helpers\Html;
 use craft\helpers\Json as JsonHelper;
 use yii\db\Schema;
 
@@ -33,7 +34,10 @@ class ImageColorField extends Field
 {
     // Public Properties
     // =========================================================================
-
+    /**
+     * @var string|null The UID of the site that this field should relate elements from
+     */
+    public $targetSiteId;
 
     // Static Methods
     // =========================================================================
@@ -110,7 +114,7 @@ class ImageColorField extends Field
         $view->registerAssetBundle(ImageColorFieldAsset::class);
 
         // Get our id and namespace
-        $id = $view->formatInputId($this->handle);
+        $id = Html::id($this->handle);
         $namespacedId = $view->namespaceInputId($id);
 
         // Variables to pass down to our field JavaScript to let it namespace properly
@@ -133,8 +137,9 @@ class ImageColorField extends Field
             "elements" => $elements,
             "limit" => 1,
             "criteria" => array(
-                "status" => null
+                "siteId" => $this->targetSiteId($element),
             ),
+            "fieldId" => $this->id,
             "storageKey" => "field." . $this->id,
             "viewMode" => "large"
         );
@@ -151,5 +156,30 @@ class ImageColorField extends Field
                 'elementSelectSettings' => $elementSelectSettings
             ]
         );
+    }
+
+    /**
+     * Returns the site ID that target elements should have.
+     *
+     * @param ElementInterface|null $element
+     * @return int
+     */
+    protected function targetSiteId(ElementInterface $element = null): int
+    {
+        if (Craft::$app->getIsMultiSite()) {
+            if ($this->targetSiteId) {
+                try {
+                    return Craft::$app->getSites()->getSiteByUid($this->targetSiteId)->id;
+                } catch (SiteNotFoundException $exception) {
+                    Craft::warning($exception->getMessage(), __METHOD__);
+                }
+            }
+
+            if ($element !== null) {
+                return $element->siteId;
+            }
+        }
+
+        return Craft::$app->getSites()->getCurrentSite()->id;
     }
 }
