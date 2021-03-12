@@ -31,6 +31,6 @@
         "handle": "imagecolor",
         "hasCpSettings": false,
         "hasCpSection": false,
-        "class": "hfg\\imagecolor\\Imagecolor"
+        "class": "hfg\\imagecolor\\ImageColor"
     }
 }
