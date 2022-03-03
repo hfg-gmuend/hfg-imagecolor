@@ -93,10 +93,11 @@ class ImageColorField extends Field
     {
         $serialized = [];
         if ($value instanceof ImageColorModel) {
+            $hexColor = substr($value->color, 0, 1) == "#" ? $value->color : "#" . $value->color;
             $serialized = [
                 "image" => $value->image,
                 "color" => $value->color,
-                "brightness" => Imager::$plugin->color->getPercievedBrightness($value->color)
+                "brightness" => Imager::$plugin->color->getPercievedBrightness($hexColor)
             ];
         }
 
